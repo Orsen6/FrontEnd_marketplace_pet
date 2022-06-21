@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import axios from 'axios';
+import Header from './components/Header.jsx';
+import Main from './components/Main.jsx';
+import RegisterForm from './components/RegisterForm.jsx';
+import MyButton from './components/UI/Button/MyButton.jsx';
+import MyModal from './components/UI/MyModal/MyModal.jsx';
+import classes from './style.module.scss'
 
 function App() {
-  return (
+
+  const [visible, setVisible] = useState({ 
+    registerModal: false,
+    loginModal: false
+  });
+
+  const [posts, setPosts] = useState([
+    {title: 'Сорочка', id: 1},
+    {title: 'Джімси', id: 2},
+    {title: 'Футболка', id: 3},
+    {title: 'Майка', id: 4},
+  ]);
+  
+  return(
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header visible={[visible.registerModal, visible.loginModal]} setVisible={setVisible}/>
+      <Main posts={posts}>
+
+      </Main>
+      <MyModal visible={visible.registerModal} setVisible={setVisible}>
+        <RegisterForm />
+      </MyModal>
+      <MyModal visible={visible.loginModal} setVisible={setVisible}>
+        <div>123</div>
+      </MyModal>
     </div>
   );
 }
